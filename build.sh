@@ -10,11 +10,11 @@ chmod 600 ~/.ssh/id_ed25519
 cat > ~/.ssh/config <<EOL
 Host github.com
     Hostname github.com
-    IdentityFile=/home/buildbot/.ssh/id_ed25519
+    IdentityFile=~/.ssh/id_ed25519
     StrictHostKeyChecking no
-    UserKnownHostsFile=/dev/null
 EOL
 chmod 600 ~/.ssh/config
+cat ~/.ssh/config
 
 git clone git@github.com:mcvnh/zetta.git notes
 
