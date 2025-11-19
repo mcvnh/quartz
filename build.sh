@@ -5,10 +5,16 @@ mkdir -p ~/.ssh
 echo "$NOTES_SSH_KEY" > ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519
 chmod 600 ~/.ssh/id_ed25519
-ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-# Debug: check key is loaded
-ls -la ~/.ssh
+# Create SSH config file
+cat > ~/.ssh/config <<EOL
+Host github.com
+    Hostname github.com
+    IdentityFile=/home/buildbot/.ssh/id_ed25519
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
+EOL
+chmod 600 ~/.ssh/config
 
 git clone git@github.com:mcvnh/zetta.git notes
 
