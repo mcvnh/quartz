@@ -9,7 +9,7 @@ chmod 600 ~/.ssh/id_ed25519
 
 # Avoid "host verification" failure
 ssh-keyscan github.com >> ~/.ssh/known_hosts
-
+ssh -T git@github.com
 # Clone your private note repo
 git clone git@github.com:mcvnh/zetta.git notes
 
