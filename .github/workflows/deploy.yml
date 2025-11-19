@@ -37,10 +37,11 @@ jobs:
               IdentityFile ~/.ssh/id_ed25519
           EOL
           chmod 600 ~/.ssh/config
+          cat ~/.ssh/id_ed25519
+          cat ~/.ssh/config
 
       - name: Clone private notes repo
         run: |
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
           git clone git@github.com:mcvnh/zetta.git notes
 
       - run: |
