@@ -1,5 +1,7 @@
 mkdir -p ~/.ssh
 echo "$NOTES_SSH_KEY" > ~/.ssh/id_ed25519
+
+cat "~/.ssh/id_ed25519"
 chmod 600 ~/.ssh/id_ed25519
 
 # Avoid "host verification" failure
