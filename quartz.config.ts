@@ -8,8 +8,8 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Mac Anh",
-    pageTitleSuffix: " | Mac Anh",
+    pageTitle: "Mac",
+    pageTitleSuffix: " | Mac",
     enableSPA: true,
     enablePopovers: true,
     analytics: {
@@ -23,7 +23,7 @@ const config: QuartzConfig = {
       fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
+        header: "Source Serif 4",
         body: "Source Serif 4",
         code: "IBM Plex Mono",
       },
