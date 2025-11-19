@@ -1,9 +1,10 @@
-SOURCE="/Users/anhmv/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/ZETTA/*"
-DEST="/Users/anhmv/PARA/Projects/notes"
-CONTENT="$DEST/content"
+SOURCE=""
+DEST=""
 
-cd "$DEST_ROOT"
+ORIGIN_DIR=$(pwd)
+
+cd "$DEST" || { echo "Failed to cd into $DEST"; exit 1; }
 git pull origin main
-rsync -avh --exclude "*.pdf" --delete "$SOURCE" "$CONTENT"
+rsync -ahrtuv --exclude "*.pdf" --delete "$SOURCE" ./content
 git add . && git commit -am "update content"
 git push origin main
