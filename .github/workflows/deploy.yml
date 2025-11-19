@@ -1,0 +1,66 @@
+name: Deploy Quartz site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - me
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch all history for git info
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Dependencies
+        run: npm ci
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.NOTES_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          cat > ~/.ssh/config <<EOL
+          Host github.com
+              StrictHostKeyChecking no
+              IdentityFile ~/.ssh/id_ed25519
+          EOL
+          chmod 600 ~/.ssh/config
+
+      - name: Clone private notes repo
+        run: |
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+          git clone git@github.com:mcvnh/zetta.git notes
+
+      - run: |
+          rm -rf content
+          cp -R notes/content ./content
+
+      - name: Build Quartz
+        run: npx quartz build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
