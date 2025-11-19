@@ -6,7 +6,7 @@ chmod 600 ~/.ssh/id_ed25519
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Clone your private note repo
-git clone git@github.com:mcvnh/notes.git notes
+git clone git@github.com:mcvnh/zetta.git notes
 
 # Replace Quartz content/ folder
 rm -rf content
