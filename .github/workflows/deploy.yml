@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - me
+  schedule:
+    - cron: "0 * * * *" # every hour at minute 0
 
 permissions:
   contents: read
